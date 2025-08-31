@@ -1,8 +1,9 @@
-# React + Vite
+Movie Trivia Quiz
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A movie trivia quiz website that generates several quiz fields based on the movie enter.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Technology:
+>OMDB API to generate 700,000+ movies
+>Formik and Yup to handle form and data collection
+>HTML & Tailwind used to structure and style the website
+>Used React Js as a framework for the whole website
