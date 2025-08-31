@@ -6,7 +6,7 @@ export default function MovieInput() {
   const navigate = useNavigate();
   const location = useLocation();
   const [apiData, setApiData] = useState(null);
-  const apiKey = "c0f5ebc6";
+  const apiKey = import.meta.env.VITE_OMDB_API_KEY;
 
   async function handleApi(movieName) {
     try {

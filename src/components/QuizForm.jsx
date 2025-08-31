@@ -1,247 +1,65 @@
-import { useState, useEffect } from "react";
-import Form from "./Form";
-import "../index.css";
+import { useState } from 'react';
 
-function QuizForm({
+export default function QuizForm({
+  labelTitle,
   correctAnswer,
-  lableTitle,
-  quizField,
-  solved,
   id,
+  solved,
   onSolved,
-  difficulty,
+  difficulty, // Note: difficulty is not used in this example, but is passed in
 }) {
-  //A state variable that checks if the quiz is solved
-  const [solvedState, setSolvedState] = useState(solved);
-  //State variable that checks if the quiz has been attempted
-  const [attempted, setAttempted] = useState(false);
+  const [guess, setGuess] = useState('');
+  const [isCorrect, setIsCorrect] = useState(null);
 
-  function validateAnswer(userGuess) {
-    setAttempted(true);
-    console.log("the correct answer is :", correctAnswer);
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (solved) return;
 
-    switch (difficulty) {
-      case "easy":
-        switch (quizField) {
-          case "Year":
-            console.log('the switch case was called');
-            if (Math.abs(correctAnswer - userGuess) <= 2) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "Runtime":
-            if (Math.abs(correctAnswer - userGuess) <= 7) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "imdbRating":
-            if (Math.abs(correctAnswer - userGuess) <= 0.5) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "BoxOffice":
-            correctAnswer = correctAnswer
-              .substring(1, correctAnswer.length)
-              .replaceAll(",", "");
-            console.log("modified box office is ", correctAnswer);
-            if (Math.abs(correctAnswer - userGuess) <= 1000000) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "Director":
-            if (correctAnswer.toLowerCase().includes(userGuess.toLowerCase())) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-        }
-        break;
-      case "medium":
-        switch (quizField) {
-          case "Year":
-            if (Math.abs(correctAnswer - userGuess) <= 1) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "Runtime":
-            if (Math.abs(correctAnswer - userGuess) <= 3) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "imdbRating":
-            if (Math.abs(correctAnswer - userGuess) <= 0.3) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "BoxOffice":
-            correctAnswer = correctAnswer
-              .substring(1, correctAnswer.length)
-              .replaceAll(",", "");
-            console.log("modified box office is ", correctAnswer);
-            if (Math.abs(correctAnswer - userGuess) <= 1000000) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "Director":
-            if (correctAnswer.toLowerCase().includes(userGuess.toLowerCase())) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-        }
-        break;
-      case "hard":
-        switch (quizField) {
-          case "Year":
-            console.log('the switch case was called');
-            if (Math.abs(correctAnswer - userGuess) <= 0) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "Runtime":
-            if (Math.abs(correctAnswer - userGuess) <= 1) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "imdbRating":
-            if (Math.abs(correctAnswer - userGuess) <= 0) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "BoxOffice":
-            correctAnswer = correctAnswer
-              .substring(1, correctAnswer.length)
-              .replaceAll(",", "");
-            console.log("modified box office is ", correctAnswer);
-            if (Math.abs(correctAnswer - userGuess) <= 1000000) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-          case "Director":
-            if (correctAnswer.toLowerCase().includes(userGuess.toLowerCase())) {
-              console.log("correct");
-              setSolvedState(true);
-              return true;
-            } else {
-              console.log("wrong");
-              setSolvedState(false);
-              return false;
-            }
-            break;
-        }
-        break;
-    }
-  }
+    // A simple check, you might have more complex logic based on difficulty
+    const correct =
+      String(guess).toLowerCase().trim() ===
+      String(correctAnswer).toLowerCase().trim();
 
-  function handleValidationSubmition(userGuess) {
-    if (validateAnswer(userGuess)) {
+    setIsCorrect(correct);
+    if (correct) {
       onSolved(id);
     }
-  }
+  };
+
+  const inputStyle = solved
+    ? 'bg-asparagus/20 border-asparagus text-gray-500'
+    : 'bg-gray-50 border-gray-300 focus:ring-1 focus:ring-asparagus focus:border-asparagus';
 
   return (
-    <div
-      className={` flex justify-center items-center gap-2 ${solvedState ? "gap-4" : ""}`}
-    >
-      <div
-        className={`overlay flex justify-center items-center ${attempted && solved ? "bg-green-500" : ""} ${attempted && !solved ? "bg-red-500" : ""} ${!attempted ? "bg-transparent" : ""}`}
+    <form onSubmit={handleSubmit} className="p-4 border border-gray-200 rounded-lg">
+      <label
+        htmlFor={`quiz-input-${id}`}
+        className="block mb-2 text-sm font-bold lato-bold text-outerspace"
       >
-        <label
-          htmlFor="quiz-form"
-          id="quiz-form-label"
-          className="w-32 min-w-10 visible text-center"
+        {labelTitle}
+      </label>
+      <div className="flex gap-2">
+        <input
+          id={`quiz-input-${id}`}
+          type="text"
+          value={guess}
+          onChange={(e) => setGuess(e.target.value)}
+          className={`block w-full p-2 text-sm text-gray-900 border rounded-lg transition-colors ${inputStyle}`}
+          disabled={solved}
+          placeholder="Your answer..."
+        />
+        <button
+          type="submit"
+          disabled={solved || !guess}
+          className="px-4 py-2 text-sm font-medium text-white rounded-lg bg-asparagus hover:bg-opacity-90 focus:outline-none focus:ring-4 focus:ring-asparagus/50 disabled:bg-gray-300 disabled:cursor-not-allowed"
         >
-          {lableTitle}
-        </label>
+          {solved ? 'Solved!' : 'Check'}
+        </button>
       </div>
-
-      <div className={`${!solvedState ? "visible" : "hidden"} mr-10 `}>
-        <Form onSubmit={handleValidationSubmition} />
-      </div>
-    </div>
+      {!solved && isCorrect === false && (
+        <p className="mt-2 text-sm text-red-600">Not quite, try again!</p>
+      )}
+    </form>
   );
 }
 
-export default QuizForm;

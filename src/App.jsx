@@ -1,7 +1,7 @@
 import Main from './pages/Main'
 import MovieInput from './pages/MovieInput'
 import Login from './pages/Login'
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   
