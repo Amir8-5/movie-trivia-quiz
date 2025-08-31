@@ -10,6 +10,7 @@ export default function MovieInput() {
 
   async function handleApi(movieName) {
     try {
+      console.log(apiKey);
       const response = await fetch(
         `http://www.omdbapi.com/?apikey=${apiKey}&t=${movieName}`
       );
